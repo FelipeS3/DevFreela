@@ -12,7 +12,7 @@ public class DevFreelaDbContext : DbContext
     public DbSet<Project> Projects { get; set; }
     public DbSet<UserSkill> UserSkills { get; set; }
     public DbSet<ProjectComment> ProjectComments { get; set; }
-    public DbSet<Skill> Skill { get; set; }
+    public DbSet<Skill> Skills { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
