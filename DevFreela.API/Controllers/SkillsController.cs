@@ -33,17 +33,6 @@ namespace DevFreela.API.Controllers
 
             return NoContent();
         }
-        //PUT api/skills
-        [HttpPut("{id}/skills")]
-        public IActionResult Put(int id)
-        {
-            return Ok();
-        }
-        //DELETE api/skills
-        [HttpDelete]
-        public IActionResult Delete(int id)
-        {
-            return Ok();
-        }
+        
     }
 }

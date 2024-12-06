@@ -12,7 +12,12 @@ builder.Services.Configure<FreelanceTotalCostConfig>(
     builder.Configuration.GetSection("FreelanceTotalCostConfig")
     );
 
-builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseInMemoryDatabase("DevFreelaDb"));
+// builder.Services.AddDbContext<DevFreelaDbContext>(o => o.UseInMemoryDatabase("DevFreelaDb"));
+
+var connectionString = builder.Configuration.GetConnectionString("DevFreelaCs");
+
+builder.Services.AddDbContext<DevFreelaDbContext>(b => b.UseSqlServer            (connectionString));
+
 
 builder.Services.AddTransient<IConfigService, ConfigService>();
 

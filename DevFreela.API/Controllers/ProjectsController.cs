@@ -25,12 +25,15 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string search = "")
+        public IActionResult Get(string search = "", int page = 0, int size = 3)
         {
             var project = _context.Projects
                 .Include(p=>p.Client)
                 .Include(p=>p.Freelancer)
-                .Where(p => !p.IsDeleted).ToList();
+                .Where(p => !p.IsDeleted && (search == "" || p.Title.Contains(search) || p.Description.Contains(search)))
+                .Skip(page * size)
+                .Take(size)
+                .ToList();
 
             var model = project.Select(ProjectItemViewModel.FromEntity).ToList();
 
@@ -58,7 +61,7 @@ namespace DevFreela.API.Controllers
 
             _context.Projects.Add(project);
             _context.SaveChanges();
-            return Ok(project);
+            return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
         }
         //PUT api/project/1234
         [HttpPut("{id}")]
