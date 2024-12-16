@@ -1,6 +1,6 @@
-﻿using DevFreela.API.Entities;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.Application.Models;
 
 public class ProjectViewModel
 {
@@ -26,10 +26,10 @@ public class ProjectViewModel
     public string FreelancerName { get; private set; }
     public decimal TotalCost { get; private set; }
     public List<string> Comments { get; private set; }
-    
-    public static ProjectViewModel FromEntity(Project entity) => new ProjectViewModel(entity.Id,          entity.Title,
-        entity.Description, entity.IdFreelancer, 
-        entity.IdClient, entity.Client.Fullname, 
+
+    public static ProjectViewModel FromEntity(Project entity) => new ProjectViewModel(entity.Id, entity.Title,
+        entity.Description, entity.IdFreelancer,
+        entity.IdClient, entity.Client.Fullname,
         entity.Freelancer.Fullname,
         entity.TotalCost, entity.Comments);
 }

@@ -1,7 +1,7 @@
-﻿using DevFreela.API.Entities;
+﻿using DevFreela.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.API.Persistence;
+namespace DevFreela.Infrastructure.Persistence;
 
 public class DevFreelaDbContext : DbContext
 {
@@ -26,7 +26,7 @@ public class DevFreelaDbContext : DbContext
             e.HasKey(us => us.Id);
 
             e.HasOne(u => u.Skill)
-                .WithMany(u =>u.UserSkills)
+                .WithMany(u => u.UserSkills)
                 .HasForeignKey(u => u.IdSkill)
                 .OnDelete(DeleteBehavior.Restrict);
         });
@@ -35,9 +35,9 @@ public class DevFreelaDbContext : DbContext
         {
             e.HasKey(c => c.Id);
 
-            e.HasOne(c=>c.Project)
-                .WithMany(p=>p.Comments)
-                .HasForeignKey(c=>c.IdProject)
+            e.HasOne(c => c.Project)
+                .WithMany(p => p.Comments)
+                .HasForeignKey(c => c.IdProject)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -45,24 +45,24 @@ public class DevFreelaDbContext : DbContext
         {
             e.HasKey(u => u.Id);
 
-            e.HasMany(u=>u.Skills)
-                .WithOne(us=>us.User)
-                .HasForeignKey(us=>us.IdUser)
+            e.HasMany(u => u.Skills)
+                .WithOne(us => us.User)
+                .HasForeignKey(us => us.IdUser)
                 .OnDelete(DeleteBehavior.Restrict);
         });
-        
+
         builder.Entity<Project>(e =>
         {
             e.HasKey(p => p.Id);
 
-            e.HasOne(p=>p.Freelancer)
-                .WithMany(f=>f.FreelanceProjects)
-                .HasForeignKey(p=>p.IdFreelancer)
+            e.HasOne(p => p.Freelancer)
+                .WithMany(f => f.FreelanceProjects)
+                .HasForeignKey(p => p.IdFreelancer)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            e.HasOne(p=>p.Client)
-                .WithMany(c=>c.OwnerProjects)
-                .HasForeignKey(p=>p.IdClient)
+            e.HasOne(p => p.Client)
+                .WithMany(c => c.OwnerProjects)
+                .HasForeignKey(p => p.IdClient)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 

@@ -1,12 +1,12 @@
-﻿using DevFreela.API.Enum;
+﻿using DevFreela.Core.Enum;
 
-namespace DevFreela.API.Entities;
+namespace DevFreela.Core.Entities;
 
 public class Project : BaseEntity
 {
     protected Project()
     {
-        
+
     }
     public Project(string title, string description, int idClient, int idFreelancer, decimal totalCost) : base()
     {
@@ -23,7 +23,7 @@ public class Project : BaseEntity
     public string Description { get; private set; }
     public int IdClient { get; private set; }
     public User Client { get; private set; }
-    public  int IdFreelancer { get; private set; }
+    public int IdFreelancer { get; private set; }
     public User Freelancer { get; private set; }
     public decimal TotalCost { get; private set; }
     public DateTime? StartedAt { get; private set; }
@@ -65,7 +65,7 @@ public class Project : BaseEntity
         }
     }
 
-    public void Update(string title, string description,decimal totalCost)
+    public void Update(string title, string description, decimal totalCost)
     {
         Title = title;
         Description = description;

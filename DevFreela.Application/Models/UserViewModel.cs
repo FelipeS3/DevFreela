@@ -1,6 +1,6 @@
-﻿using DevFreela.API.Entities;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.Application.Models;
 
 public class UserViewModel
 {
@@ -21,7 +21,7 @@ public class UserViewModel
     {
         var skills = user.Skills.Select(u => u.Skill.Description).ToList();
 
-        return new UserViewModel(user.Fullname,user.Email, user.BirthDate, skills);
+        return new UserViewModel(user.Fullname, user.Email, user.BirthDate, skills);
     }
 
 }

@@ -1,10 +1,10 @@
-﻿using DevFreela.API.Entities;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.Application.Models;
 
 public class ProjectItemViewModel
 {
-    public ProjectItemViewModel(int id ,string title, string clientName, string freelancerName)
+    public ProjectItemViewModel(int id, string title, string clientName, string freelancerName)
     {
         Id = id;
         Title = title;

@@ -1,8 +1,6 @@
-﻿using System.Reflection;
-using DevFreela.API.Entities;
-using Microsoft.AspNetCore.Routing.Constraints;
+﻿using DevFreela.Core.Entities;
 
-namespace DevFreela.API.Models;
+namespace DevFreela.Application.Models;
 
 public class CreateProjectInputModel
 {
@@ -13,6 +11,5 @@ public class CreateProjectInputModel
     public decimal TotalCost { get; set; }
 
     public Project ToEntity()
-    => new (Title,Description,IdClient, IdFreelancer,TotalCost);
+    => new(Title, Description, IdClient, IdFreelancer, TotalCost);
 }
- 
