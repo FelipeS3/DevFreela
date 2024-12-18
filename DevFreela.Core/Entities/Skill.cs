@@ -2,6 +2,10 @@
 
 public class Skill : BaseEntity
 {
+    protected Skill()
+    {
+        
+    }
     public Skill(string description) : base()
     {
         Description = description;

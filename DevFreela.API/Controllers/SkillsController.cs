@@ -1,6 +1,9 @@
-﻿using DevFreela.Application.Models;
+﻿using DevFreela.Application.Commands.InsertSkill;
+using DevFreela.Application.Models;
+using DevFreela.Application.Queries.GetAllSkills;
 using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
@@ -9,30 +12,29 @@ namespace DevFreela.API.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
+        private readonly IMediator _mediator;
         private readonly DevFreelaDbContext _context;
-        public SkillsController(DevFreelaDbContext context)
+        public SkillsController(DevFreelaDbContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
         //GET api/skills
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var skills = _context.Skills.ToList();
+            var query = await _mediator.Send(new GetAllSkillsQuery());
 
-            return Ok(skills);
+            return Ok(query);
         }
         //POST api/skills
         [HttpPost]
-        public IActionResult Post(CreatedSkillInputModel model)
+        public async Task<IActionResult> Post(InsertSkillCommand command)
         {
-            var skill = new Skill(model.Description);
+            var skill = await _mediator.Send(command);
 
-            _context.Add(skill);
-            _context.SaveChanges();
-
-            return NoContent();
+            return CreatedAtAction(nameof(GetAll), new { id = skill.Data }, skill.Data);
         }
-        
+
     }
 }
