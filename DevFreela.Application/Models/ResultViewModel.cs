@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevFreela.Application.Models;
+namespace DevFreela.Application.Models; 
 
 public class ResultViewModel
 {

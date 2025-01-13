@@ -1,12 +1,9 @@
 ﻿using DevFreela.Application.Commands.InsertUser;
 using DevFreela.Application.Commands.InsertUserSkill;
-using DevFreela.Application.Models;
 using DevFreela.Application.Queries.GetUsersbyId;
-using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.API.Controllers
 {
@@ -14,11 +11,9 @@ namespace DevFreela.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly DevFreelaDbContext _context;
         private readonly IMediator _mediator;
-        public UsersController(DevFreelaDbContext context, IMediator mediator)
+        public UsersController(IMediator mediator)
         {
-            _context = context;
             _mediator = mediator;
         }
 
@@ -46,7 +41,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost("{id}/post-skills")]
-        public async Task<IActionResult> PostSkills(int id, InsertUserSkillCommand command)
+        public async Task<IActionResult> PostUserSkills(int id, InsertUserSkillCommand command)
         {
             //var userSkills = model.SkillIds.Select(s => new UserSkill(id, s)).ToList();
 

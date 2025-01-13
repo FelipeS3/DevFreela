@@ -5,11 +5,8 @@ using DevFreela.Application.Commands.InsertComment;
 using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Models;
 using DevFreela.Application.Queries.GetAllProjects;
 using DevFreela.Application.Queries.GetProjectById;
-using DevFreela.Application.Services;
-using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +16,11 @@ namespace DevFreela.API.Controllers
     [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectServices _services;
+        
         private readonly IMediator _mediator;
-        public ProjectsController(IProjectServices services, IMediator mediator)
+        public ProjectsController(IMediator mediator)
         {
             _mediator = mediator;
-            _services = services;
         }
 
         [HttpGet]
@@ -58,9 +54,12 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(InsertProjectCommand command)
         {
-            // var result = _services.Insert(model);
-
             var result = await _mediator.Send(command);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }
@@ -90,6 +89,7 @@ namespace DevFreela.API.Controllers
             {
                 return NotFound(result.Message);
             }
+
             return Ok();
         }
         //PUT api/project/start

@@ -1,25 +1,27 @@
 ﻿using DevFreela.Application.Models;
 using DevFreela.Core.Entities;
+using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevFreela.Application.Commands.InsertUserSkill;
 
-public class InsertUserSkillHandler : IRequestHandler<InsertUserSkillCommand, ResultViewModel>
+public class InsertUserSkillHandler : IRequestHandler<InsertUserSkillCommand, ResultViewModel<int>>
 {
-    private readonly DevFreelaDbContext _context;
+    private readonly IUserRepository _repository;
 
-    public InsertUserSkillHandler(DevFreelaDbContext context)
+    public InsertUserSkillHandler(IUserRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
-    public async Task<ResultViewModel> Handle(InsertUserSkillCommand request, CancellationToken cancellationToken)
+    public async Task<ResultViewModel<int>> Handle(InsertUserSkillCommand request, CancellationToken cancellationToken)
     {
-        var userSkills = request.SkillIds.Select(s => new UserSkill(request.Id, s)).ToList();
+        var skill = request.ToEntity();
 
-        _context.UserSkills.AddRange(userSkills);
-        await _context.SaveChangesAsync();
-        return ResultViewModel.Success();
+        var userSkillId = await _repository.PostUserSkills(skill);
+
+        return ResultViewModel<int>.Success(userSkillId);
     }
 }
