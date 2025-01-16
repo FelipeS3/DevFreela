@@ -43,13 +43,21 @@
 
 📂 Estrutura do Projeto
 DevFreela/
+
 ├── DevFreela.API/            # Projeto principal (API - expõe os endpoints da aplicação)
+
 ├── DevFreela.Application/     # Regras de negócio, casos de uso (CQRS)
+
 ├── DevFreela.Core/            # Entidades e contratos (classes de domínio, interfaces)
+
 ├── DevFreela.Infrastructure/  # Implementações de acesso a dados e serviços externos (EF Core, Dapper, etc.)
+
 ├── DevFreela.sln              # Solução do projeto
+
 ├── README.md                 # Documentação do projeto
+
 └── .gitignore                # Arquivo para ignorar arquivos temporários e de configuração
+
 
 
 ## 🚀 Como Executar Localmente
