@@ -58,6 +58,7 @@ DevFreela/
 
 └── .gitignore--------------------Arquivo para ignorar arquivos temporários e de configuração
 
+---
 
 📝 Funcionalidades Futuras:
 
@@ -67,6 +68,7 @@ Melhorias no sistema de notificações.
 
 Implementação de logs centralizados.
 
+---
 
 
 ## 🚀 Como Executar Localmente
