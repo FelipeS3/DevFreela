@@ -41,7 +41,7 @@
 
 ---
 
-##📂 **Estrutura do Projeto**
+📂 **Estrutura do Projeto**
 DevFreela/
 
 ├── DevFreela.API/----------------Projeto principal (API - expõe os endpoints da aplicação)
@@ -60,7 +60,7 @@ DevFreela/
 
 ---
 
-##📝 **Funcionalidades Futuras:**
+📝 **Funcionalidades Futuras:**
 
 Integração com sistemas de pagamento.
 
@@ -71,7 +71,7 @@ Implementação de logs centralizados.
 ---
 
 
-## 🚀 Como Executar Localmente
+ 🚀 Como Executar Localmente
 
 ### Pré-requisitos
 
