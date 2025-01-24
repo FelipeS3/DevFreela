@@ -1,9 +1,11 @@
-﻿using DevFreela.Core.Enum;
+﻿using System.Data;
+using DevFreela.Core.Enum;
 
 namespace DevFreela.Core.Entities;
 
 public class Project : BaseEntity
 {
+    public const string INVALID_STATE_MESSAGE = "Project is not created";
     protected Project()
     {
 
@@ -41,11 +43,12 @@ public class Project : BaseEntity
 
     public void Start()
     {
-        if (Status == ProjectStatusEnum.Created)
+        if (Status != ProjectStatusEnum.Created)
         {
-            Status = ProjectStatusEnum.InProgress;
-            StartedAt = DateTime.Now;
+            throw new InvalidExpressionException(INVALID_STATE_MESSAGE);
         }
+        Status = ProjectStatusEnum.InProgress;
+        StartedAt = DateTime.Now;
     }
 
     public void Complete()
