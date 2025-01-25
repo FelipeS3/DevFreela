@@ -6,6 +6,7 @@ namespace DevFreela.Core.Entities;
 public class Project : BaseEntity
 {
     public const string INVALID_STATE_MESSAGE = "Project is not created";
+    public const string INVALID_CANCELSTATE_MESSAGE = "Project is not in progress";
     protected Project()
     {
 
@@ -35,17 +36,18 @@ public class Project : BaseEntity
 
     public void Cancel()
     {
-        if (Status == ProjectStatusEnum.InProgress || Status == ProjectStatusEnum.Suspended)
+        if (Status != ProjectStatusEnum.InProgress)
         {
-            Status = ProjectStatusEnum.Cancelled;
+            throw new InvalidOperationException(INVALID_CANCELSTATE_MESSAGE);
         }
+        Status = ProjectStatusEnum.Cancelled;
     }
 
     public void Start()
     {
         if (Status != ProjectStatusEnum.Created)
         {
-            throw new InvalidExpressionException(INVALID_STATE_MESSAGE);
+            throw new InvalidOperationException(INVALID_STATE_MESSAGE);
         }
         Status = ProjectStatusEnum.InProgress;
         StartedAt = DateTime.Now;
