@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.InsertProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
 using MediatR;
 using Moq;
 using NSubstitute;
@@ -37,20 +38,24 @@ public class InsertProjectHandlerTest
 
         //Assert
         Assert.True(result.IsSuccess);
+        result.IsSuccess.Should().BeTrue();
+
         Assert.Equal(ID, result.Data);
+        result.Data.Should().Be(ID);
+
         await repository.Received(1).AddProject(Arg.Any<Project>());
     }
 
     [Fact]
     public async Task InputDataAreOk_InsertProject_Moq()
     {
-        //Arrange 
+        // Arrange 
         const int ID = 1;
 
         var mock = new Mock<IProjectRepository>();
         mock.Setup(r => r.AddProject(It.IsAny<Project>())).ReturnsAsync(ID);
 
-        var respository = Mock.Of<IProjectRepository>(r => r.AddProject(It.IsAny<Project>()) == Task.FromResult(ID));
+        // var respository = Mock.Of<IProjectRepository>(r => r.AddProject(It.IsAny<Project>()) == Task.FromResult(ID));
 
         var mediator = new Mock<IMediator>();
 
@@ -64,16 +69,15 @@ public class InsertProjectHandlerTest
         };
 
         var handler = new InsertProjectHandler(mediator.Object, mock.Object);
-        
-        //Act
+
+        // Act
         var result = await handler.Handle(command, new CancellationToken());
 
-        //Assert
+        // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal(ID, result.Data);
 
-        //mock.Verify(m => m.AddProject(It.IsAny<Project>()), Times.Once);
-
-        Mock.Get(respository).Verify(m => m.AddProject(It.IsAny<Project>()), Times.Once); 
+        // Verifique o mock que foi injetado no handler
+        mock.Verify(m => m.AddProject(It.IsAny<Project>()), Times.Once());
     }
 }

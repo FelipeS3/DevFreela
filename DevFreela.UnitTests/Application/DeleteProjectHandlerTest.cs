@@ -1,6 +1,9 @@
 ﻿using DevFreela.Application.Commands.DeleteProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Moq;
 using NSubstitute;
 
 namespace DevFreela.UnitTests.Application;
@@ -25,8 +28,11 @@ public class DeleteProjectHandlerTest
 
         //assert
         Assert.True(result.IsSuccess);
+        result.IsSuccess.Should().BeTrue();
+
         await repository.Received(1).GetById(1);
         await repository.Received(1).Update(Arg.Any<Project>());
+
     }
 
     [Fact]
@@ -45,9 +51,11 @@ public class DeleteProjectHandlerTest
 
         //assert
         Assert.False(result.IsSuccess);
+        result.IsSuccess.Should().BeFalse();
         Assert.Equal(DeleteProjectHandler.PROJECT_NOT_FOUND_MESSAGE, result.Message);
 
         await repository.Received(1).GetById(Arg.Any<int>());
         await repository.DidNotReceive().Update(Arg.Any<Project>());
     }
+
 }
