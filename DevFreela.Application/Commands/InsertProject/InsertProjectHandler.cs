@@ -21,12 +21,12 @@ public class InsertProjectHandler : IRequestHandler<InsertProjectCommand, Result
     {
         var project = request.ToEntity();
 
-        await _repository.AddProject(project);
+        var id = await _repository.AddProject(project);
 
         var projectCreated = new ProjectCreatedNotification(project.Id,project.Title,project.TotalCost);
 
         await _mediator.Publish(projectCreated);
 
-        return ResultViewModel<int>.Success(project.Id);
+        return ResultViewModel<int>.Success(id);
     }
 }
