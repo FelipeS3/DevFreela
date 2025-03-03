@@ -1,5 +1,6 @@
 ﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Enum;
+using DevFreela.UnitTests.Fakes;
 using FluentAssertions;
 
 namespace DevFreela.UnitTests.Core;
@@ -11,14 +12,13 @@ public class ProjectTests
     {
         //Arrange
 
-        var project = new Project("Titulo", "Descricao", 3, 3, 2000);
+        //var project = new Project("Titulo", "Descricao", 3, 3, 2000);
+        var project = FakeDataHelper.CreateFakeProjects();
 
         //Act
-
         project.Start();
 
         //Assert
-
         Assert.Equal(ProjectStatusEnum.InProgress, project.Status);
 
         project.Status.Should().Be(ProjectStatusEnum.InProgress);
@@ -35,7 +35,9 @@ public class ProjectTests
     public void ProjectIsInInvalidState_Start_ThrowsNewException()
     {
         //Arrange 
-        var project = new Project("Titulo", "Descricao", 3, 3, 2000);
+        //var project = new Project("Titulo", "Descricao", 3, 3, 2000);
+        var project = FakeDataHelper.CreateFakeProjects();
+
 
         project.Start();    
 
@@ -53,7 +55,8 @@ public class ProjectTests
     public void ProjectIsCanceled_Canceled_Sucess()
     {
         //Arrange 
-        var project = new Project("abc", "abc", 2, 2, 2200);
+        //var project = new Project("abc", "abc", 2, 2, 2200);
+        var project = FakeDataHelper.CreateFakeProjects();
 
         //Act
         Action? cancel = project.Cancel;
@@ -68,9 +71,12 @@ public class ProjectTests
     public void ProjectIsUpdated_Update_Sucess()
     {
         //Arrange
-        var project = new Project("Title", "Descricao", 3, 3, 2000);
+        //var project = new Project("Title", "Descricao", 3, 3, 2000);
+        var project = FakeDataHelper.CreateFakeProjects();
+
         //Action
         project.Update("Title update", "description update", 1000);
+
         //Assert
         Assert.Equal("Title update", project.Title);
         Assert.Equal("description update", project.Description);
