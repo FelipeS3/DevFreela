@@ -79,9 +79,9 @@ Implementação de logs centralizados.
 - [SQL Server](https://www.microsoft.com/en-us/sql-server)
 - Git instalado no seu computador.
 
-### Passo a Passo
+### Clone do repositório
 
-1. **Clone o repositório:**
+1. ****
    ```bash
    git clone https://github.com/FelipeS3/DevFreela.git
    cd DevFreela
