@@ -22,6 +22,11 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<User> LoginByEmailAndPasswordAsync(string email, string passwordHash)
+    {
+        return await _context.Users.SingleOrDefaultAsync(x => x.Email == email && x.Password == passwordHash);
+    }
+
     public async Task<int> AddUser(User user)
     {
         await _context.Users.AddAsync(user);
